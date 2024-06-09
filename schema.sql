@@ -53,32 +53,9 @@ CREATE TABLE document_status (
 );
 
 
+--This is for doc status
 CREATE OR REPLACE FUNCTION update_document_status() RETURNS TRIGGER AS $$
 BEGIN
- 
-    IF (
-        SELECT COUNT(*) = 0
-        FROM signature_fields sf
-        LEFT JOIN (
-            SELECT signature_field_id, COUNT(*) as signatures_collected
-            FROM signature_field_signers
-            GROUP BY signature_field_id
-        ) sfs ON sf.id = sfs.signature_field_id
-        WHERE sf.required_signatures > COALESCE(sfs.signatures_collected, 0)
-    ) THEN
-        UPDATE document_status
-        SET is_fully_signed = TRUE,
-            updated_at = CURRENT_TIMESTAMP
-        WHERE document_id = NEW.document_id;
-    ELSE
-        UPDATE document_status
-        SET is_fully_signed = FALSE,
-            updated_at = CURRENT_TIMESTAMP
-        WHERE document_id = NEW.document_id;
-    END IF;
-    RETURN NEW;
-END;
-$$ LANGUAGE plpgsql;
 
 -- Trigger
 CREATE TRIGGER update_document_status_trigger
