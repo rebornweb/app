@@ -1,0 +1,55 @@
+Plan -
+
+Install express for back-end and Create react app for front-end.
+
+Create Tables 
+Users: Stores information of users (email and name).
+
+Documents: Contain data about each document, including a reference to the user who created it.
+
+Signers: List the potential signers for each document, allowing multiple signers per document.
+
+Signature Fields: Define the fields within a document that require signatures and how many signature are needed for each field.
+
+Signatures: Store the actual signatures for each field along with metadata such as the time of sign.
+
+Signature Field Signers: Keep track of which signers has signed which fields.
+
+Document Status: Track whether the document has been fully signed or not.
+
+Triggers and Functions in React: These are used to update the status of the document whenever a new signature is add or removed, 
+ensuring the document status is always accurate.
+
+
+
+PG
+sudo systemctl start postgresql
+sudo systemctl status postgresql
+sudo -i -u postgres // Change user
+// Ember-Wonder-21
+Shell: psql
+
+    CREATE DATABASE mydatabase;
+    CREATE USER myuser WITH ENCRYPTED PASSWORD 'mypassword';
+    GRANT ALL PRIVILEGES ON DATABASE mydatabase TO myuser;
+    \q
+
+Create DB 
+    CREATE DATABASE mydatabase;
+    CREATE USER myuser WITH ENCRYPTED PASSWORD 'mypassword';
+    GRANT ALL PRIVILEGES ON DATABASE mydatabase TO myuser;
+    \q
+
+Run schema 
+su - postgres -c "psql -d mydatabase -f schema.sql"
+
+mynewuser - secretpassword
+
+--In postgres user
+psql -d mydatabase -a -f schema.sql
+
+sudo systemctl restart postgresql
+
+
+
+
